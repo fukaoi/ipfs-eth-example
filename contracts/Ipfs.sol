@@ -7,18 +7,18 @@ contract Ipfs {
     string fileHash;
   }
 
-  FileInfo[] fileinfo;
+  FileInfo[] fileinfos;
 
   function setUploadFileInfo(string _name, string _hash) public {
-    FileInfo memory meta = FileInfo(_name, _hash);
-    fileinfo.push(meta);
+    FileInfo memory fileinfo = FileInfo(_name, _hash);
+    fileinfos.push(fileinfo);
   }
 
   function getUploadFileInfo(uint _id) public view returns(string, string) {
-    return (fileinfo[_id].name, fileinfo[_id].fileHash);
+    return (fileinfos[_id].name, fileinfos[_id].fileHash);
   }
 
   function getLength() public view returns(uint) {
-    return fileinfo.length;
+    return fileinfos.length;
   }
 }

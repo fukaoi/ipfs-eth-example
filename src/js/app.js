@@ -7,7 +7,7 @@ App = {
 
   init: function () {
     App.initIpfs();
-    App.initContract('0xeacc85f4d2578f7536b21bc3e0abe6f7d1826dfe');
+    App.initContract('0xf05b6fc0adb84debc64f95a0eb3ae201aa3b5135');
     return App.bindEvents();
   },
 
@@ -21,9 +21,11 @@ App = {
       web3.setProvider((new Web3.providers.HttpProvider('http://localhost:8545')));
       web3.eth.defaultAccount = web3.eth.coinbase;
       App.contract = web3.eth.contract(aritifact.abi).at(address);
+      console.log(App.contract.getLength());
       for (var i = 0; i < App.contract.getLength(); i++) {
-        infos = App.contract.getUploadFileInfo(i);
-        App.insertTemplate(infos[0], infos[1]);
+        info = App.contract.getUploadFileInfo(i);
+        console.log(info);
+        App.insertTemplate(info[0], info[1]);
       } 
     });
   },
@@ -50,7 +52,7 @@ App = {
       const hash = result[0].hash;
       const url = `https://ipfs.io/ipfs/${hash}`;
       App.contract.setUploadFileInfo(filename, hash);
-      $('#result').html(url);
+      console.log(url);
     })
   },
 

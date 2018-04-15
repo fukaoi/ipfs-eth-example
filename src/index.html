@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>File upload by ipfs, ethereum</title>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div>
+      <div>
+        <h2 class="text-center">File upload by ipfs, ethereum</h2>
+        <hr/>
+        <br/>
+      </div>
+    </div>
+    <div class="row">
+      <form id="target">
+          <input name="file" type="file">
+          <input class="btn btn-primary" type="submit" name="submit" value=" アップロード"> </div>
+      </form>
+      
+      <table class="table" style="margin-top: 200px">
+        <thead>
+          <tr>
+            <th scope="col">ファイル名</th>
+            <th scope="col">ファイルURL</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+      
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>  
+  <script src="https://wzrd.in/standalone/buffer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.min.js"></script>
+  <script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js" integrity="sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB"
+    crossorigin="anonymous"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

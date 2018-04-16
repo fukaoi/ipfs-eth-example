@@ -7,7 +7,7 @@ App = {
 
   init: function () {
     App.initIpfs();
-    App.initContract('0xf05b6fc0adb84debc64f95a0eb3ae201aa3b5135');
+    App.initContract('0xb9e9dfa2fd06544b7af3e7908ec69f57e3c3fb5b');
     return App.bindEvents();
   },
 
@@ -51,7 +51,7 @@ App = {
       }
       const hash = result[0].hash;
       const url = `https://ipfs.io/ipfs/${hash}`;
-      App.contract.setUploadFileInfo(filename, hash);
+      App.contract.setUploadFileInfo(filename, hash, { gas: 500000});
       console.log(url);
     })
   },

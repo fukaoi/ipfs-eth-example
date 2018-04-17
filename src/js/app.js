@@ -1,40 +1,42 @@
-// before ipfs daemon startup, Should ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
-// before geth daemon startup, geth --dev --rpc --rpccorsdomain "*"'
+// [need to]ipfs daemon startup, Should ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
+// [need to]geth daemon startup, geth --dev --rpc --rpccorsdomain "*"'
 
 App = {
   ipfs: {},
   contract: {},
+  web3: {},
 
-  init: function () {
+  init: () => {
     App.initIpfs();
-    App.initContract('0xb9e9dfa2fd06544b7af3e7908ec69f57e3c3fb5b');
+    App.initWeb3();
+    App.initContract('0x02c4fbdef5be7d1e96a70ed3ad3dffbe6964175a');
     return App.bindEvents();
   },
 
-  initIpfs: function() {
+  initIpfs: () => {
     App.ipfs = window.IpfsApi('localhost', '5001');    
   },
 
-  initContract: function (address) {
-    var web3 = new Web3();
-    $.getJSON('Ipfs.json', function (aritifact) { 
-      web3.setProvider((new Web3.providers.HttpProvider('http://localhost:8545')));
-      web3.eth.defaultAccount = web3.eth.coinbase;
-      App.contract = web3.eth.contract(aritifact.abi).at(address);
-      console.log(App.contract.getLength());
+  initWeb3: () => {
+    App.web3 = new Web3();
+    App.web3.setProvider((new Web3.providers.HttpProvider('http://localhost:8545')));    
+  },
+
+  initContract: (address) => {
+    $.getJSON('Ipfs.json', (aritifact) => { 
+      App.contract = App.web3.eth.contract(aritifact.abi).at(address);
       for (var i = 0; i < App.contract.getLength(); i++) {
         info = App.contract.getUploadFileInfo(i);
-        console.log(info);
         App.insertTemplate(info[0], info[1]);
       } 
     });
   },
 
-  bindEvents: function () {
+  bindEvents: () => {
     $('#target').submit(App.handleSubmit);
   },
 
-  handleSubmit: function (event) {
+  handleSubmit: (event) => {
     event.preventDefault();
     const file = event.target[0].files[0];
     const reader = new window.FileReader();
@@ -42,7 +44,7 @@ App = {
     reader.readAsArrayBuffer(file);
   },
 
-  saveIpfs: function (reader, filename) {
+  saveIpfs: (reader, filename) => {
     const buf = buffer.Buffer(reader.result)
     App.ipfs.files.add(buf, (err, result) => {
       if(err) {
@@ -51,12 +53,14 @@ App = {
       }
       const hash = result[0].hash;
       const url = `https://ipfs.io/ipfs/${hash}`;
-      App.contract.setUploadFileInfo(filename, hash, { gas: 500000});
-      console.log(url);
+      App.contract.setUploadFileInfo(filename, hash, { gas: 500000, from: App.web3.eth.coinbase });
+      $('#success-alert').show();
+      $('#success-message').text(url);
+
     })
   },
 
-  insertTemplate: function (name, hash) {
+  insertTemplate: (name, hash) => {
     var body = '';
     body += '<tr>';
     body += `<td>${name}</td>`    
@@ -66,8 +70,8 @@ App = {
   }
 };
 
-$(function () {
-  $(window).load(function () {
+$(() => {
+  $(window).load(() => {
     App.init();
   });
 });

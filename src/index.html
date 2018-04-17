@@ -19,13 +19,20 @@
         <br/>
       </div>
     </div>
-    <div class="row">
+
+    <div class="row d-flex justify-content-center align-items-cente">
       <form id="target">
           <input name="file" type="file">
           <input class="btn btn-primary" type="submit" name="submit" value=" アップロード"> </div>
       </form>
-      
-      <table class="table" style="margin-top: 200px">
+
+      <br />
+      <div class="alert alert-success" style="display: none" id="success-alert">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong>Success! created IPFS URL </strong><div id="success-message"></div>
+    </div>
+
+      <table class="table" style="margin-top: 100px">
         <thead>
           <tr>
             <th scope="col">ファイル名</th>
@@ -36,14 +43,13 @@
 
         </tbody>
       </table>
-      
     </div>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>  
   <script src="https://wzrd.in/standalone/buffer"></script>
-  <script src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@0.20.6/dist/web3.min.js"></script>
   <script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js"></script>
   <script src="js/app.js"></script>
 </body>

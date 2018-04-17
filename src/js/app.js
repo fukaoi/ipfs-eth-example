@@ -27,7 +27,7 @@ App = {
       App.contract = App.web3.eth.contract(aritifact.abi).at(address);
       for (var i = 0; i < App.contract.getLength(); i++) {
         info = App.contract.getUploadFileInfo(i);
-        App.insertTemplate(info[0], info[1]);
+        App.setTemplate(info[0], info[1]);
       } 
     });
   },
@@ -60,7 +60,7 @@ App = {
     })
   },
 
-  insertTemplate: (name, hash) => {
+  setTemplate: (name, hash) => {
     var body = '';
     body += '<tr>';
     body += `<td>${name}</td>`    
